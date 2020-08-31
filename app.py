@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, abort, jsonify, redirect
 from flask_cors import CORS
-from models import Blog, User, setup_db, db
+from models import Project, setup_db, db
 from flask_migrate import Migrate
 
 
@@ -17,10 +17,6 @@ def create_app(test_config=None):
     '''
     @app.after_request
     def after_request(response):
-        response.headers.add(
-            'Access-Control-Allow-Headers',
-            'Content-Type, Authorization'
-        )
         response.headers.add(
             'Access-Control-Allow-Methods',
             'GET,POST,PATCH,DELETE,OPTIONS'
@@ -42,32 +38,32 @@ def create_app(test_config=None):
         return 'Hello!'
 
     # A GET endpoint to get all the blog posts
-    @app.route('/blogs', methods=['GET'])
-    def get_all_blogs():
-        blogs = Blog.query.all()
+    @app.route('/projects', methods=['GET'])
+    def get_all_projects():
+        #projects = Project.query.all()
+        projects = [Project('title', 10, 'Isaac'), Project('titel2', 3, 'Joe')]
         return jsonify({
             'success': True,
-            'blogs': [blog.format() for blog in blogs]
+            'projects': [project.format() for project in projects]
         })
 
 
     # A POST endpoint used to create new blog posts.
-    @app.route('/blogs', methods=['POST'])
-    @requires_auth('post:blogs')
-    def create_blog():
+    @app.route('/projects', methods=['POST'])
+    def create_project():
         body = get_body(request)
 
         title = body.get('title')
-        blog_body = body.get('body')
-        author_id = body.get('author_id')
+        duration = body.get('duration')
+        owner = body.get('owner')
 
         try:
-            new_blog = Blog(title, blog_body, author_id)
-            new_blog.insert()
+            new_project = Project(title, duration, owner)
+            # new_project.insert()
 
             return jsonify({
                 'success': True,
-                'created': new_blog.id,
+                'created': new_project.id,
             })
         except Exception as e:
             print(e)
@@ -75,18 +71,17 @@ def create_app(test_config=None):
 
 
     # A DELETE endpoint used to delete blog posts
-    @app.route('/blogs/<int:blog_id>', methods=['DELETE'])
-    @requires_auth('delete:blogs')
-    def delete_blog(blog_id):
-        blog = Blog.query.filter(Blog.id == blog_id).one_or_none()
-        if(blog is None):
-            abort(404)
+    @app.route('/projects', methods=['DELETE'])
+    def delete_project(project_id):
+        #project = Project.query.filter(Project.id == project_id).one_or_none()
+        # if(project is None):
+            # abort(404)
 
         try:
-            blog.delete()
+            # project.delete()
             return jsonify({
                 'success': True,
-                'deleted': blog_id,
+                'deleted': project_id,
             })
         except Exception as e:
             print(e)
@@ -116,4 +111,4 @@ def create_app(test_config=None):
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, )
