@@ -1,16 +1,15 @@
-import os
-from flask import Flask, request, abort, jsonify, redirect
+from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
-from models import Project, setup_db, db
+from models import ResourceManagement, setup_db, db
 from flask_migrate import Migrate
 
 
 def create_app(test_config=None):
 
     app = Flask(__name__)
-    #setup_db(app)
+    setup_db(app)
     CORS(app)
-    #migrate = Migrate(app, db)
+    Migrate(app, db)
 
     '''
         The after_request decorator to set Access-Control-Allow
@@ -40,27 +39,28 @@ def create_app(test_config=None):
     # A GET endpoint to get all the blog posts
     @app.route('/projects', methods=['GET'])
     def get_all_projects():
-        #projects = Project.query.all()
+        # projects = Project.query.all()
         projects = [Project('title', 10, 'Isaac'), Project('titel2', 3, 'Joe')]
         return jsonify({
             'success': True,
             'projects': [project.format() for project in projects]
         })
 
-
     # A POST endpoint used to create new blog posts.
     @app.route('/projects', methods=['POST'])
     def create_project():
         body = get_body(request)
 
-        title = body.get('title')
+        projectName = body.get('projectName')
         duration = body.get('duration')
-        owner = body.get('owner')
+        resourceName = body.get('resourceName')
+        status = body.get('status')
+        updatedDate = body.get('updatedDate')
 
         try:
-            new_project = Project(title, duration, owner)
+            new_project = Project(projectName, duration, resourceName,
+                                  status, updatedDate)
             # new_project.insert()
-
             return jsonify({
                 'success': True,
                 'created': new_project.id,
@@ -68,7 +68,6 @@ def create_app(test_config=None):
         except Exception as e:
             print(e)
             abort(422)
-
 
     # A DELETE endpoint used to delete blog posts
     @app.route('/projects', methods=['DELETE'])

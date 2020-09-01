@@ -1,14 +1,14 @@
 import os
-from sqlalchemy import Column, String, Integer, create_engine
+from sqlalchemy import Column, String, Integer
 from flask_sqlalchemy import SQLAlchemy
-import json
+import datetime
 
 try:
     database_path = os.environ['DATABASE_URL']
 except Exception as e:
     print('Database Path exception: ' + str(e))
     database_path = (
-        #"postgres://postgres:Blue84paired.@localhost:5432/reasons_for_hope"
+        "postgres://postgres:Blue84paired.@localhost:5432/pm_dashboard"
     )
 
 db = SQLAlchemy()
@@ -36,7 +36,7 @@ def setup_db(app, database_path=database_path):
 
 class Basic_Model():
     id = Column(Integer, primary_key=True)
-    
+
     def insert(self):
         db.session.add(self)
         db.session.commit()
@@ -54,22 +54,30 @@ class Basic_Model():
 """
 
 
-class Project(Basic_Model, db.Model):
-    __tablename__ = 'project'
+class ResourceManagement(Basic_Model, db.Model):
+    __tablename__ = 'resourceManagement'
 
-    title = Column(String, nullable=False)
+    projectName = Column(String, nullable=False)
     duration = Column(Integer, nullable=False)
-    owner = Column(String, nullable=False)
+    resourceName = Column(String, nullable=False)
+    status = Column(String, nullable=True)
+    updatedDate = Column(db.DateTime, default=datetime.datetime.utcnow,
+                         nullable=True)
 
-    def __init__(self, title, duration, owner):
+    def __init__(self, projectName, duration, resourceName, status,
+                 updatedDate):
         self.duration = duration
-        self.title = title
-        self.owner = owner
+        self.projectName = projectName
+        self.resourceName = resourceName
+        self.status = status
+        self.updatedDate = updatedDate
 
     def format(self):
         return {
             'id': self.id,
-            'title': self.title,
+            'projectName': self.projectName,
             'duration': self.duration,
-            'owner': self.owner,
+            'resourceName': self.resourceName,
+            'status': self.status,
+            'updatedDate': self.updatedDate
         }
