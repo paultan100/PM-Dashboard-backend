@@ -37,17 +37,16 @@ def create_app(test_config=None):
         return 'Hello!'
 
     # A GET endpoint to get all the blog posts
-    @app.route('/projects', methods=['GET'])
+    @app.route('/resources', methods=['GET'])
     def get_all_projects():
-        # projects = Project.query.all()
-        projects = [Project('title', 10, 'Isaac'), Project('titel2', 3, 'Joe')]
+        resources = ResourceManagement.query.all()
         return jsonify({
             'success': True,
-            'projects': [project.format() for project in projects]
+            'projects': [resource.format() for resource in resources]
         })
 
     # A POST endpoint used to create new blog posts.
-    @app.route('/projects', methods=['POST'])
+    @app.route('/resources', methods=['POST'])
     def create_project():
         body = get_body(request)
 
@@ -58,29 +57,31 @@ def create_app(test_config=None):
         updatedDate = body.get('updatedDate')
 
         try:
-            new_project = Project(projectName, duration, resourceName,
-                                  status, updatedDate)
-            # new_project.insert()
+            new_resource = ResourceManagement(projectName, duration,
+                                              resourceName,
+                                              status, updatedDate)
+            new_resource.insert()
             return jsonify({
                 'success': True,
-                'created': new_project.id,
+                'created': new_resource.id,
             })
         except Exception as e:
             print(e)
             abort(422)
 
     # A DELETE endpoint used to delete blog posts
-    @app.route('/projects', methods=['DELETE'])
-    def delete_project(project_id):
-        #project = Project.query.filter(Project.id == project_id).one_or_none()
-        # if(project is None):
-            # abort(404)
+    @app.route('/resources/<resource_id>', methods=['DELETE'])
+    def delete_project(resource_id):
+        resource = ResourceManagement.query.filter(
+            ResourceManagement.id == resource_id).one_or_none()
+        if(resource is None):
+            abort(404)
 
         try:
-            # project.delete()
+            resource.delete()
             return jsonify({
                 'success': True,
-                'deleted': project_id,
+                'deleted': resource_id,
             })
         except Exception as e:
             print(e)
@@ -106,6 +107,7 @@ def create_app(test_config=None):
         }), code
 
     return app
+
 
 app = create_app()
 
