@@ -28,7 +28,7 @@ GET '/resources'
 - Returns a JSON of all the resources
 - Request arguments: none
 - Returns whether if was successful and all the resources
-    example response:
+- example response:
 {
     success: true,
     resources:[
@@ -46,14 +46,14 @@ GET '/resources'
 POST '/resources'
 - Creates a new resources
 - Request Arguments: a JSON object with at least a projectName, duration, and resourceName. 
-    example request JSON:
+- example request JSON:
     {
         "projectName": "test",
         "duration": 12,
         "resourceName" : "Jonny"
     } 
 - Returns whether the request was successful and the id of the created resource
-    example response: 
+- example response: 
     {
         success: true,
         created: 1
@@ -62,8 +62,8 @@ POST '/resources'
 Delete '/resources/{resource_id}'
 - Deletes the specified resource
 - Request arguements: none
-- Returns whether it was deleted or not and the id of the delted resource.
-    example response: 
+- Returns whether it was deleted or not and the id of the deleted resource.
+- example response: 
     {
         success: true,
         deleted: 1
