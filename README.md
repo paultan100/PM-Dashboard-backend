@@ -11,3 +11,60 @@ To get this project up and running locally the following steps must be completed
 3. Run 'flask db init', 'flask db migrate', then 'flask db upgrade'. This will create the tables needed in the db specified in the previous step.  
 
 4. To run the server type 'flask run'.
+
+## Endpoints
+All but '/' endpoints return JSON objects.
+
+Endpoints:
+GET '/'
+GET '/resources'
+POST '/resources'
+DELETE '/resources/{resource_id}'
+
+GET '/'
+This endpoint just returns hello.
+
+GET '/resources'
+- Returns a JSON of all the resources
+- Request arguments: none
+- Returns whether if was successful and all the resources
+    example response:
+{
+    success: true,
+    resources:[
+        {
+            id: 1,
+            projectName: 'My first project',
+            duration: 10,
+            resourceName: 'Isaac',
+            status: 'active',
+            updatedDate: 'Wed, 02 Sep 2020 18:47:29 GMT'
+        }
+    ]
+}
+
+POST '/resources'
+- Creates a new resources
+- Request Arguments: a JSON object with at least a projectName, duration, and resourceName. 
+    example request JSON:
+    {
+        "projectName": "test",
+        "duration": 12,
+        "resourceName" : "Jonny"
+    } 
+- Returns whether the request was successful and the id of the created resource
+    example response: 
+    {
+        success: true,
+        created: 1
+    }
+
+Delete '/resources/{resource_id}'
+- Deletes the specified resource
+- Request arguements: none
+- Returns whether it was deleted or not and the id of the delted resource.
+    example response: 
+    {
+        success: true,
+        deleted: 1
+    }
