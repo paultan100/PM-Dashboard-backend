@@ -10,6 +10,7 @@ capability_endpoint = Blueprint('capability_endpoint',
 def get_all_capabilities():
     return Util.basic_get_request(Capability)
 
+# A POST endpoint to create a new capability
 @capability_endpoint.route('/capabilities', methods=['POST'])
 def create_resource():
     body = Util.get_body(request)
