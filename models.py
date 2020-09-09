@@ -52,8 +52,6 @@ class Basic_Model():
 """
     This is the basic Project class
 """
-
-
 class ResourceManagement(Basic_Model, db.Model):
     __tablename__ = 'resourceManagement'
 
@@ -80,4 +78,26 @@ class ResourceManagement(Basic_Model, db.Model):
             'resourceName': self.resourceName,
             'status': self.status,
             'updatedDate': self.updatedDate
+        }
+
+class Capability(Basic_Model, db.Model):
+    __tablename__ = 'capability'
+
+    number = Column(Integer, nullable=False)
+    name = Column(String, nullable=False)
+    size = Column(String, nullable=False)
+    status = Column(String, nullable=False)
+
+    def __init__(self, number, name, size, status):
+        self.number = number
+        self.name = name
+        self.size = size
+        self.status = status
+
+    def format(self):
+        return {
+            'id': self.id,
+            'number': self.number,
+            'size': self.size,
+            'status': self.status
         }
