@@ -18,10 +18,11 @@ def create_resource():
     name = body.get('name')
     size = body.get('size')
     status = body.get('status')
+    length = body.get('length')
 
     try:
         new_capability = Capability(number, name, size,
-                                  status)
+                                  status, length)
         new_capability.insert()
         return jsonify({
             'success': True,
