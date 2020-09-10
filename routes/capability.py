@@ -33,6 +33,7 @@ def create_resource():
         print(e)
         abort(422)
 
+# A DELETE endpoint to delete a capability
 @capability_endpoint.route('/capabilities/<capability_id>', 
                          methods=['DELETE'])
 def delete_project(capability_id):

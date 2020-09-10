@@ -32,8 +32,6 @@ def setup_db(app, database_path=database_path):
     updating, and deleting. These methods will be available for
     each class which inherits this basic model.
 """
-
-
 class Basic_Model():
     id = Column(Integer, primary_key=True)
 

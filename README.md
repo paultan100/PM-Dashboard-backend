@@ -20,6 +20,11 @@ GET '/'
 GET '/resources'
 POST '/resources'
 DELETE '/resources/{resource_id}'
+GET '/capabilities'
+POST '/capabilities'
+DELETE '/capabilities'
+
+```
 
 GET '/'
 This endpoint just returns hello.
@@ -31,7 +36,7 @@ GET '/resources'
 - example response:
 {
     success: true,
-    resources:[
+    items:[
         {
             id: 1,
             projectName: 'My first project',
@@ -59,7 +64,8 @@ POST '/resources'
         created: 1
     }
 
-Delete '/resources/{resource_id}'
+DELETE '/resources/{resource_id}', 
+       '/capabilities/{capability_id}'
 - Deletes the specified resource
 - Request arguements: none
 - Returns whether it was deleted or not and the id of the deleted resource.
@@ -67,4 +73,41 @@ Delete '/resources/{resource_id}'
     {
         success: true,
         deleted: 1
+    }
+
+GET '/capability'
+- Returns a JSON of all the capabilties
+- Request arguments: none
+- Returns whether if was successful and all the resources
+- example response:
+{
+    success: true,
+    items: [
+        {
+            id: 1,
+            number: 12,
+            name: "My first capability",
+            size: 34,
+            status: 'active',
+            length: 1
+        }
+    ]
+}
+
+POST '/capability'
+- Creates a new capabiltiiy
+- Request Arguments: a JSON object with a number, name, size,
+status and length. 
+- example request JSON:
+    {
+        "number": 12
+        "name": "test",
+        "size": "Medium",
+        "length" : 34
+    } 
+- Returns whether the request was successful and the id of the created resource
+- example response: 
+    {
+        success: true,
+        created: 1
     }
