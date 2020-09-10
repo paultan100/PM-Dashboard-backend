@@ -32,8 +32,6 @@ def setup_db(app, database_path=database_path):
     updating, and deleting. These methods will be available for
     each class which inherits this basic model.
 """
-
-
 class Basic_Model():
     id = Column(Integer, primary_key=True)
 
@@ -52,8 +50,6 @@ class Basic_Model():
 """
     This is the basic Project class
 """
-
-
 class ResourceManagement(Basic_Model, db.Model):
     __tablename__ = 'resourceManagement'
 
@@ -80,4 +76,35 @@ class ResourceManagement(Basic_Model, db.Model):
             'resourceName': self.resourceName,
             'status': self.status,
             'updatedDate': self.updatedDate
+        }
+
+class Capability(Basic_Model, db.Model):
+    __tablename__ = 'capability'
+
+    number = Column(Integer, nullable=False)
+    name = Column(String, nullable=False)
+    size = Column(String, nullable=False)
+    status = Column(String, nullable=False)
+    length = Column(Integer, nullable=False)
+    dependency = Column(String, nullable=False, 
+                        default="N/A")
+
+    def __init__(self, number, name, size, status, length,
+                 dependency):
+        self.number = number
+        self.name = name
+        self.size = size
+        self.status = status
+        self.length = length
+        self.dependency = dependency
+
+    def format(self):
+        return {
+            'id': self.id,
+            'number': self.number,
+            'name' : self.name,
+            'size': self.size,
+            'length': self.length,
+            'status': self.status,
+            'dependancy' : self.dependency
         }
