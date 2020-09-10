@@ -1,5 +1,5 @@
 from models import Capability
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, abort
 from util import Util
 
 capability_endpoint = Blueprint('capability_endpoint',
@@ -24,7 +24,7 @@ def create_resource():
 
     try:
         new_capability = Capability(number, name, size,
-                                  status, length)
+                                  status, length, dependency)
         new_capability.insert()
         return jsonify({
             'success': True,

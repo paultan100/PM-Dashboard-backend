@@ -113,3 +113,5 @@ status and length.
         success: true,
         created: 1
     }
+
+To connect to the heroku database use: psql -h hostname -d databasename -U username
