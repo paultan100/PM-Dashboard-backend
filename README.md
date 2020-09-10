@@ -88,8 +88,9 @@ GET '/capability'
             number: 12,
             name: "My first capability",
             size: 34,
-            status: 'active',
-            length: 1
+            status: "active",
+            length: 1,
+            dependency: "N/A"
         }
     ]
 }
@@ -103,7 +104,8 @@ status and length.
         "number": 12
         "name": "test",
         "size": "Medium",
-        "length" : 34
+        "length" : 34,
+        "status" : "ACTIVE",
     } 
 - Returns whether the request was successful and the id of the created resource
 - example response: 

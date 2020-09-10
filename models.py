@@ -86,13 +86,17 @@ class Capability(Basic_Model, db.Model):
     size = Column(String, nullable=False)
     status = Column(String, nullable=False)
     length = Column(Integer, nullable=False)
+    dependency = Column(String, nullable=False, 
+                        default="N/A")
 
-    def __init__(self, number, name, size, status, length):
+    def __init__(self, number, name, size, status, length,
+                 dependency):
         self.number = number
         self.name = name
         self.size = size
         self.status = status
         self.length = length
+        self.dependency = dependency
 
     def format(self):
         return {
@@ -101,5 +105,6 @@ class Capability(Basic_Model, db.Model):
             'name' : self.name,
             'size': self.size,
             'length': self.length,
-            'status': self.status
+            'status': self.status,
+            'dependancy' : self.dependency
         }

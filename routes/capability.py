@@ -20,6 +20,7 @@ def create_resource():
     size = body.get('size')
     status = body.get('status')
     length = body.get('length')
+    dependency = body.get('dependency')
 
     try:
         new_capability = Capability(number, name, size,
