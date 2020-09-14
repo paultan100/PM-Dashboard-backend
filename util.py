@@ -1,14 +1,14 @@
 from flask import jsonify, abort
 
 """
-    A Util Class which handles basic operations.
+    A Util Class which handles basic HTTP Requests operations.
 """
 class Util(): 
 
     """
         A GET endpoint
         returns all the domain items from the database
-        of the query type passed 
+        of the query type passed
     """
     @staticmethod
     def basic_get_request(query_type):
@@ -46,3 +46,16 @@ class Util():
         if body is None:
             abort(400)
         return body
+
+    # A POST endpoint used to create an item
+    @staticmethod
+    def basic_post_request(new_item):
+        try:
+            new_item.insert()
+            return jsonify({
+                'success': True,
+                'created': new_item.id,
+            })
+        except Exception as e:
+            print(e)
+            abort(422)

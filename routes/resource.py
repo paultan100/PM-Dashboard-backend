@@ -21,20 +21,13 @@ def create_resource():
     resourceName = body.get('resourceName')
     status = body.get('status')
     updatedDate = body.get('updatedDate')
+    new_resource = ResourceManagement(projectName, duration,
+                                      resourceName,
+                                      status, updatedDate)
 
-    try:
-        new_resource = ResourceManagement(projectName, duration,
-                                            resourceName,
-                                            status, updatedDate)
-        new_resource.insert()
-        return jsonify({
-            'success': True,
-            'created': new_resource.id,
-        })
-    except Exception as e:
-        print(e)
-        abort(422)
+    return Util.basic_post_request(new_resource)
 
+# A DELETE endpoint used to delete a resource 
 @resource_endpoint.route('/resources/<resource_id>', 
                          methods=['DELETE'])
 def delete_project(resource_id):

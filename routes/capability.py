@@ -21,18 +21,9 @@ def create_resource():
     status = body.get('status')
     length = body.get('length')
     dependency = body.get('dependency')
-
-    try:
-        new_capability = Capability(number, name, size,
-                                  status, length, dependency)
-        new_capability.insert()
-        return jsonify({
-            'success': True,
-            'created': new_capability.id,
-        })
-    except Exception as e:
-        print(e)
-        abort(422)
+    new_capability = Capability(number, name, size,
+                                status, length, dependency)
+    return Util.basic_post_request(new_capability)
 
 # A DELETE endpoint to delete a capability
 @capability_endpoint.route('/capabilities/<capability_id>', 
