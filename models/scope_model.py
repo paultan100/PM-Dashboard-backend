@@ -1,4 +1,4 @@
-from models import Basic_Model, db
+from models.models import Basic_Model, db
 from sqlalchemy import Column, Integer
 
 class Scope(Basic_Model, db.Model):

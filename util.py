@@ -1,4 +1,5 @@
 from flask import jsonify, abort
+from models.models import Basic_Model
 
 """
     A Util Class which handles basic HTTP Requests operations.
@@ -11,7 +12,7 @@ class Util():
         of the query type passed
     """
     @staticmethod
-    def basic_get_request(query_type):
+    def basic_get_request(query_type: Basic_Model):
         items = query_type.query.all()
         return jsonify({
             'success': True,

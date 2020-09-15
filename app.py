@@ -4,7 +4,7 @@ from models.models import setup_db, db
 from flask_migrate import Migrate
 from routes.capability import capability_endpoint
 from routes.resource import resource_endpoint
-
+from routes.scope_endpoint import scope_endpoint
 
 def create_app(test_config=None):
 
@@ -14,6 +14,7 @@ def create_app(test_config=None):
     Migrate(app, db)
     app.register_blueprint(capability_endpoint)
     app.register_blueprint(resource_endpoint)
+    app.register_blueprint(scope_endpoint)
 
     '''
         The after_request decorator to set Access-Control-Allow
