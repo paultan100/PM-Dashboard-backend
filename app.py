@@ -1,6 +1,6 @@
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
-from models import ResourceManagement, setup_db, db
+from models.models import setup_db, db
 from flask_migrate import Migrate
 from routes.capability import capability_endpoint
 from routes.resource import resource_endpoint

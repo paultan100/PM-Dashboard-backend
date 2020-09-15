@@ -1,4 +1,4 @@
-from models import Capability
+from models.capability_model import Capability
 from flask import Blueprint, jsonify, request, abort
 from util import Util
 

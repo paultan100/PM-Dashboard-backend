@@ -1,4 +1,4 @@
-from models import ResourceManagement
+from models.resource_model import ResourceManagement
 from flask import Blueprint, jsonify, request, abort
 from util import Util
 
