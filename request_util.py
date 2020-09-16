@@ -4,7 +4,7 @@ from models.models import Basic_Model
 """
     A Util Class which handles basic HTTP Requests operations.
 """
-class Util(): 
+class Request_Util(): 
 
     """
         A GET endpoint
@@ -56,6 +56,19 @@ class Util():
             return jsonify({
                 'success': True,
                 'created': new_item.id,
+            })
+        except Exception as e:
+            print(e)
+            abort(422)
+    
+    # Handles basic patch requests
+    @staticmethod
+    def basic_patch_request(new_item):
+        try:
+            new_item.update()
+            return jsonify({
+                'success': True,
+                'updated': new_item.id,
             })
         except Exception as e:
             print(e)

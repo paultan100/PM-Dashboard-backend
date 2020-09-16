@@ -2,9 +2,7 @@ from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 from models.models import setup_db, db
 from flask_migrate import Migrate
-from routes.capability import capability_endpoint
-from routes.resource import resource_endpoint
-from routes.scope_endpoint import scope_endpoint
+from app_util import App_Util
 
 def create_app(test_config=None):
 
@@ -12,9 +10,7 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
     Migrate(app, db)
-    app.register_blueprint(capability_endpoint)
-    app.register_blueprint(resource_endpoint)
-    app.register_blueprint(scope_endpoint)
+    App_Util.register_blueprints(app)
 
     '''
         The after_request decorator to set Access-Control-Allow

@@ -1,6 +1,6 @@
 from models.scope_model import Scope
 from flask import Blueprint, jsonify, request, abort
-from util import Util
+from request_util import Request_Util
 
 scope_endpoint = Blueprint('scope_endpoint',
                                 __name__)
@@ -8,13 +8,13 @@ scope_endpoint = Blueprint('scope_endpoint',
 # A GET endpoint to get all the scopes
 @scope_endpoint.route('/scopes', methods=['GET'])
 def get_all_scopes():
-    return Util.basic_get_request(Scope)
+    return Request_Util.basic_get_request(Scope)
 
 # A POST endpoint used to create the scope objects in the 
 # scope table
 @scope_endpoint.route('/scopes', methods=['POST'])
 def create_scopes():
-    body = Util.get_body(request)
+    body = Request_Util.get_body(request)
     points = body.get('points')
 
     if points is None:
