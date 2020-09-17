@@ -39,3 +39,10 @@ def edit_future_capability(fut_cap_id):
         future_capability.capabilities_count = body.get('capabilities_count')
 
     return Request_Util.basic_patch_request(future_capability)
+
+# A DELETE endpoint to delete a future capability
+@future_capabilities_endpoint.route('/future_capabilities/<fut_cap_id>', 
+                                    methods=['DELETE'])
+def delete_future_capability(fut_cap_id):
+    return Request_Util.basic_delete_request(Future_Capabilities, 
+                                        fut_cap_id)
