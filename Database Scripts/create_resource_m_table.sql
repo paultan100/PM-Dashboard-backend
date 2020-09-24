@@ -22,7 +22,7 @@ SET default_table_access_method = heap;
 CREATE TABLE public."resourceManagement" (
     id integer NOT NULL,
     "projectName" character varying NOT NULL,
-    duration integer NOT NULL,
+    roles character NOT NULL,
     "resourceName" character varying NOT NULL,
     status character varying,
     "updatedDate" timestamp without time zone
