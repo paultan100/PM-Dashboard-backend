@@ -21,7 +21,7 @@ class Request_Util():
         
     # A DELETE endpoint used to delete an item
     @staticmethod
-    def basic_delete_request(query_type, item_id):
+    def basic_delete_request(query_type: Basic_Model, item_id):
         item = query_type.query.filter(
             query_type.id == item_id).one_or_none()
         if(item is None):
@@ -50,7 +50,7 @@ class Request_Util():
 
     # A POST endpoint used to create an item
     @staticmethod
-    def basic_post_request(new_item):
+    def basic_post_request(new_item: Basic_Model):
         try:
             new_item.insert()
             return jsonify({
@@ -63,7 +63,7 @@ class Request_Util():
     
     # Handles basic patch requests
     @staticmethod
-    def basic_patch_request(new_item):
+    def basic_patch_request(new_item: Basic_Model):
         try:
             new_item.update()
             return jsonify({

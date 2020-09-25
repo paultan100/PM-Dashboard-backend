@@ -17,11 +17,11 @@ def create_resource():
     body = Request_Util.get_body(request)
 
     projectName = body.get('projectName')
-    duration = body.get('duration')
+    roles = body.get('roles')
     resourceName = body.get('resourceName')
     status = body.get('status')
     updatedDate = body.get('updatedDate')
-    new_resource = ResourceManagement(projectName, duration,
+    new_resource = ResourceManagement(projectName, roles,
                                       resourceName,
                                       status, updatedDate)
 
